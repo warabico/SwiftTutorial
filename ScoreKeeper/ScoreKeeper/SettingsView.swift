@@ -9,6 +9,7 @@
 import SwiftUI
 
 struct SettingsView: View {
+    @Binding var doesHighestScoreWin: Bool
     @Binding var startingPoints: Int
     
     var body: some View {
@@ -16,6 +17,12 @@ struct SettingsView: View {
             Text("Game Rules")
                 .font(.headline)
             Divider()
+            Picker("Win condition", selection: $doesHighestScoreWin) {
+                Text("Highest Score wins")
+                    .tag(true)
+                Text("Lowest Score wins")
+                    .tag(false)
+            }
             Picker("Starting Points", selection: $startingPoints) {
                 Text("0 starting points")
                     .tag(0)
@@ -31,6 +38,10 @@ struct SettingsView: View {
 }
 
 #Preview {
+    @Previewable @State var doesHighestScoreWin = true
     @Previewable @State var startingPoints = 10
-    SettingsView(startingPoints: $startingPoints)
+    SettingsView(
+        doesHighestScoreWin: $doesHighestScoreWin,
+        startingPoints: $startingPoints
+    )
 }
